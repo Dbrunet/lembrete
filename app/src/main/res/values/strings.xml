@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Lembretes</string>
+
+    <string name="email">Email</string>
+    <string name="name">Nome</string>
+    <string name="phone">Telefone</string>
+    <string name="description">Descrição</string>
+    <string name="status">Status</string>
+    <string name="tag">tag</string>
+    <string name="color">Cor</string>
+    <string name="data">Data criação</string>
+
+    <string name="invalid_name">O campo nome esta inválido</string>
+    <string name="invalid_email">O campo e-mail esta inválido</string>
+    <string name="invalid_birthday">O campo data esta inválido</string>
+    <string name="invalid_phone">O campo telefone esta inválido</string>
+    <string name="invalid_address">O campo endereço esta inválido</string>
+    <string name="person">Lembrete</string>
+    <string name="are_you_sure">Tem certeza que deseja deletar este lembrete?</string>
+    <string name="no_contacts">Voce não tem nenhum lembrete cadastrado</string>
+</resources>
