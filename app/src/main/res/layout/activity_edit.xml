@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/tag"
-                    android:inputType="phone|textNoSuggestions" />
+                    android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -71,17 +71,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/color"
-                    android:inputType="textEmailAddress|textNoSuggestions" />
+                    android:inputType="none" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/birthdayTextInputLayout"
+                android:id="@+id/dateCreateTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/birthdayEditText"
+                    android:id="@+id/dateCreateEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusableInTouchMode="false"

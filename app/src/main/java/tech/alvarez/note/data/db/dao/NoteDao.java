@@ -17,16 +17,16 @@ import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 public interface NoteDao {
 
 
-    @Query("SELECT * FROM Note ORDER BY name ASC")
+    @Query("SELECT * FROM tb_note ORDER BY name ASC")
     LiveData<List<Note>> findAllPersons();
 
-    @Query("SELECT * FROM Note")
+    @Query("SELECT * FROM tb_note")
     List<Note> getAllChannels();
 
-    @Query("SELECT * FROM Note WHERE id=:id")
+    @Query("SELECT * FROM tb_note WHERE id=:id")
     Note findPersonById(String id);
 
-    @Query("SELECT * FROM Note WHERE id=:id")
+    @Query("SELECT * FROM tb_note WHERE id=:id")
     Note findPerson(long id);
 
     @Insert(onConflict = IGNORE)
@@ -41,6 +41,6 @@ public interface NoteDao {
     @Delete
     void deletePerson(Note person);
 
-    @Query("DELETE FROM Note")
+    @Query("DELETE FROM tb_note")
     void deleteAll();
 }

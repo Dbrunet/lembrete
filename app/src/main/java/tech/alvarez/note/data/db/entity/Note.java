@@ -29,7 +29,6 @@ public class Note {
         this.dateCreate = null;
         this.color = "";
         this.tag = "";
-        this.status = false;
     }
 
 

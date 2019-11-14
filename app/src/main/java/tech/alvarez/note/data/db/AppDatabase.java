@@ -8,7 +8,7 @@ import android.content.Context;
 import tech.alvarez.note.data.db.dao.NoteDao;
 import tech.alvarez.note.data.db.entity.Note;
 
-@Database(entities = {Note.class}, version = 1)
+@Database(entities = {Note.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;

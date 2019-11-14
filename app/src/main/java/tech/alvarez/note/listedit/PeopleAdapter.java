@@ -33,11 +33,11 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.nameTextView.setText(mValues.get(position).name);
-        holder.tagTextView.setText(mValues.get(position).);
+        holder.tagTextView.setText(mValues.get(position).tag);
 
-        holder.addressTextView.setText(holder.mItem.address);
-        holder.emailTextView.setText(holder.mItem.email);
-        holder.birthdayTextView.setText(Util.formatMin(holder.mItem.birthday));
+        holder.descriptionTextView.setText(holder.mItem.description);
+        holder.tagTextView.setText(holder.mItem.tag);
+        holder.dataCreateTextView.setText(Util.formatMin(holder.mItem.dateCreate));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,20 +68,18 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView nameTextView;
-        public final TextView phoneTextView;
-        public final TextView emailTextView;
-        public final TextView birthdayTextView;
-        public final TextView addressTextView;
+        public final TextView descriptionTextView;
+        public final TextView dataCreateTextView;
+        public final TextView tagTextView;
         public Note mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             nameTextView = (TextView) view.findViewById(R.id.nameTextView);
-            phoneTextView = (TextView) view.findViewById(R.id.phoneTextView);
-            emailTextView = (TextView) view.findViewById(R.id.emailTextView);
-            birthdayTextView = (TextView) view.findViewById(R.id.birthdayTextView);
-            addressTextView = (TextView) view.findViewById(R.id.addressTextView);
+            descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
+            dataCreateTextView = (TextView) view.findViewById(R.id.dataCreateTextView);
+            tagTextView = (TextView) view.findViewById(R.id.tagTextView);
         }
     }
 

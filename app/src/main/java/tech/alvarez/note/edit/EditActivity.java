@@ -33,7 +33,7 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
 
     private FloatingActionButton mFab;
 
-    private Note person;
+    private Note note;
     private boolean mEditMode = false;
 
     @Override
@@ -41,7 +41,7 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        person = new Note();
+        note = new Note();
         checkMode();
 
         AppDatabase db = AppDatabase.getDatabase(getApplication());
@@ -54,13 +54,13 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
     protected void onStart() {
         super.onStart();
         if (mEditMode) {
-            mPresenter.getPersonAndPopulate(person.id);
+            mPresenter.getPersonAndPopulate(note.id);
         }
     }
 
     private void checkMode() {
         if (getIntent().getExtras() != null) {
-            person.id = getIntent().getLongExtra(Constants.PERSON_ID, 0);
+            note.id = getIntent().getLongExtra(Constants.PERSON_ID, 0);
             mEditMode = true;
         }
     }
@@ -69,16 +69,16 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
         mNameEditText = (EditText) findViewById(R.id.nameEditText);
         mDescriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         mTagEditText = (EditText) findViewById(R.id.tagEditText);
-        mColorEditText = (EditText) findViewById(R.id.birthdayEditText);
-        mDateCreateEditText = (EditText) findViewById(R.id.da);
+        mColorEditText = (EditText) findViewById(R.id.tagEditText);
+        mDateCreateEditText = (EditText) findViewById(R.id.dateCreateEditText);
 
         mNameTextInputLayout = (TextInputLayout) findViewById(R.id.nameTextInputLayout);
         mDescriptionInputLayout = (TextInputLayout) findViewById(R.id.descriptionTextInputLayout);
-        mTagInputLayout = (TextInputLayout) findViewById(R.id.emailTextInputLayout);
-        mDateCreateInputLayout = (TextInputLayout) findViewById(R.id.birthdayTextInputLayout);
-        mColorTextInputLayout = (TextInputLayout) findViewById(R.id.phoneTextInputLayout);
+        mTagInputLayout = (TextInputLayout) findViewById(R.id.tagTextInputLayout);
+        mDateCreateInputLayout = (TextInputLayout) findViewById(R.id.dateCreateTextInputLayout);
+        mColorTextInputLayout = (TextInputLayout) findViewById(R.id.colorTextInputLayout);
 
-        mDateCreateInputLayout.setOnClickListener(new View.OnClickListener() {
+        mDateCreateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPresenter.showDateDialog();
@@ -91,19 +91,19 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
             @Override
             public void onClick(View v) {
 
-                person.name = mNameEditText.getText().toString();
-                person.description = mDescriptionEditText.getText().toString();
-                person.color = mColorEditText.getText().toString();
-                person.tag = mTagEditText.getText().toString();
+                note.name = mNameEditText.getText().toString();
+                note.description = mDescriptionEditText.getText().toString();
+                note.color = mColorEditText.getText().toString();
+                note.tag = mTagEditText.getText().toString();
 
-                boolean valid = mPresenter.validate(person);
+                boolean valid = mPresenter.validate(note);
 
                 if (!valid) return;
 
                 if (mEditMode) {
-                    mPresenter.update(person);
+                    mPresenter.update(note);
                 } else {
-                    mPresenter.save(person);
+                    mPresenter.save(note);
                 }
             }
         });
@@ -118,24 +118,24 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
     public void showErrorMessage(int field) {
         if (field == Constants.FIELD_NAME) {
             mNameTextInputLayout.setError(getString(R.string.invalid_name));
-        } else if (field == Constants.FIELD_EMAIL) {
-            mEmailInputLayout.setError(getString(R.string.invalid_email));
-        } else if (field == Constants.FIELD_PHONE) {
-            mPhoneTextInputLayout.setError(getString(R.string.invalid_phone));
-        } else if (field == Constants.FIELD_ADDRESS) {
-            mAddressInputLayout.setError(getString(R.string.invalid_address));
-        } else if (field == Constants.FIELD_BIRTHDAY) {
-            mBirthdayInputLayout.setError(getString(R.string.invalid_birthday));
+        } else if (field == Constants.FIELD_DESCRIPTION) {
+            mDescriptionInputLayout.setError(getString(R.string.invalid_email));
+        } else if (field == Constants.FIELD_TAG) {
+            mTagInputLayout.setError(getString(R.string.invalid_phone));
+        } else if (field == Constants.FIELD_COLOR) {
+            mColorTextInputLayout.setError(getString(R.string.invalid_address));
+        } else if (field == Constants.FIELD_DATE) {
+            mDateCreateInputLayout.setError(getString(R.string.invalid_birthday));
         }
     }
 
     @Override
     public void clearPreErrors() {
         mNameTextInputLayout.setErrorEnabled(false);
-        mEmailInputLayout.setErrorEnabled(false);
-        mPhoneTextInputLayout.setErrorEnabled(false);
-        mAddressInputLayout.setErrorEnabled(false);
-        mBirthdayInputLayout.setErrorEnabled(false);
+        mDescriptionInputLayout.setErrorEnabled(false);
+        mTagInputLayout.setErrorEnabled(false);
+        mColorTextInputLayout.setErrorEnabled(false);
+        mDateCreateInputLayout.setErrorEnabled(false);
     }
 
     @Override
@@ -150,18 +150,18 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
     }
 
     @Override
-    public void populate(Note person) {
-        this.person = person;
-        mNameEditText.setText(person.name);
-        mAddressEditText.setText(person.address);
-        mEmailEditText.setText(person.email);
-        mBirthdayEditText.setText(Util.format(person.birthday));
-        mPhoneEditText.setText(person.phone);
+    public void populate(Note note) {
+        this.note = note;
+        mNameEditText.setText(note.name);
+        mDescriptionEditText.setText(note.description);
+        mColorEditText.setText(note.color);
+        mDateCreateEditText.setText(Util.format(note.dateCreate));
+        mTagEditText.setText(note.tag);
     }
 
     @Override
     public void setSelectedDate(Date date) {
-        person.birthday = date;
-        mBirthdayEditText.setText(Util.format(date));
+        note.dateCreate = date;
+        mDateCreateEditText.setText(Util.format(date));
     }
 }

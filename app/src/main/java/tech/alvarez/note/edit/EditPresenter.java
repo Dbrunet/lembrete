@@ -34,20 +34,20 @@ public class EditPresenter implements EditContract.Presenter {
             mView.showErrorMessage(Constants.FIELD_NAME);
             return false;
         }
-        if (person.address.isEmpty()) {
-            mView.showErrorMessage(Constants.FIELD_ADDRESS);
+        if (person.description.isEmpty()) {
+            mView.showErrorMessage(Constants.FIELD_DESCRIPTION);
             return false;
         }
-        if (person.phone.isEmpty() || !Util.isValidPhone(person.phone)) {
-            mView.showErrorMessage(Constants.FIELD_PHONE);
+        if (person.tag.isEmpty() ) {
+            mView.showErrorMessage(Constants.FIELD_TAG);
             return false;
         }
-        if (person.email.isEmpty() || !Util.isValidEmail(person.email)) {
-            mView.showErrorMessage(Constants.FIELD_EMAIL);
+        if (person.color.isEmpty()) {
+            mView.showErrorMessage(Constants.FIELD_COLOR);
             return false;
         }
-        if (person.birthday == null) {
-            mView.showErrorMessage(Constants.FIELD_BIRTHDAY);
+        if (person.dateCreate == null) {
+            mView.showErrorMessage(Constants.FIELD_DATE);
             return false;
         }
 
