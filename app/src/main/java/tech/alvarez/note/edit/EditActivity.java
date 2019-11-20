@@ -45,7 +45,7 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
         checkMode();
 
         AppDatabase db = AppDatabase.getDatabase(getApplication());
-        mPresenter = new EditPresenter(this, db.personModel());
+        mPresenter = new EditPresenter(this, db.noteModel());
 
         initViews();
     }
@@ -60,7 +60,7 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
 
     private void checkMode() {
         if (getIntent().getExtras() != null) {
-            note.id = getIntent().getLongExtra(Constants.PERSON_ID, 0);
+            note.id = getIntent().getLongExtra(Constants.NOTE_ID, 0);
             mEditMode = true;
         }
     }
@@ -70,12 +70,12 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
         mDescriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         mTagEditText = (EditText) findViewById(R.id.tagEditText);
         mColorEditText = (EditText) findViewById(R.id.tagEditText);
-        mDateCreateEditText = (EditText) findViewById(R.id.dateCreateEditText);
+        mDateCreateEditText = (EditText) findViewById(R.id.dateAlertEditText);
 
         mNameTextInputLayout = (TextInputLayout) findViewById(R.id.nameTextInputLayout);
         mDescriptionInputLayout = (TextInputLayout) findViewById(R.id.descriptionTextInputLayout);
         mTagInputLayout = (TextInputLayout) findViewById(R.id.tagTextInputLayout);
-        mDateCreateInputLayout = (TextInputLayout) findViewById(R.id.dateCreateTextInputLayout);
+        mDateCreateInputLayout = (TextInputLayout) findViewById(R.id.dateAlertTextInputLayout);
         mColorTextInputLayout = (TextInputLayout) findViewById(R.id.colorTextInputLayout);
 
         mDateCreateEditText.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +93,7 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
 
                 note.name = mNameEditText.getText().toString();
                 note.description = mDescriptionEditText.getText().toString();
-                note.color = mColorEditText.getText().toString();
+                note.color = String.valueOf(Util.getRandomColor());
                 note.tag = mTagEditText.getText().toString();
 
                 boolean valid = mPresenter.validate(note);
@@ -119,13 +119,11 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
         if (field == Constants.FIELD_NAME) {
             mNameTextInputLayout.setError(getString(R.string.invalid_name));
         } else if (field == Constants.FIELD_DESCRIPTION) {
-            mDescriptionInputLayout.setError(getString(R.string.invalid_email));
+            mDescriptionInputLayout.setError(getString(R.string.invalid_description));
         } else if (field == Constants.FIELD_TAG) {
-            mTagInputLayout.setError(getString(R.string.invalid_phone));
-        } else if (field == Constants.FIELD_COLOR) {
-            mColorTextInputLayout.setError(getString(R.string.invalid_address));
+            mTagInputLayout.setError(getString(R.string.invalid_tag));
         } else if (field == Constants.FIELD_DATE) {
-            mDateCreateInputLayout.setError(getString(R.string.invalid_birthday));
+            mDateCreateInputLayout.setError(getString(R.string.invalid_data));
         }
     }
 
@@ -155,13 +153,13 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
         mNameEditText.setText(note.name);
         mDescriptionEditText.setText(note.description);
         mColorEditText.setText(note.color);
-        mDateCreateEditText.setText(Util.format(note.dateCreate));
+        mDateCreateEditText.setText(Util.format(note.dateAlert));
         mTagEditText.setText(note.tag);
     }
 
     @Override
     public void setSelectedDate(Date date) {
-        note.dateCreate = date;
+        note.dateAlert = date;
         mDateCreateEditText.setText(Util.format(date));
     }
 }

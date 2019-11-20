@@ -8,12 +8,12 @@ import tech.alvarez.note.utils.Util;
 public class EditPresenter implements EditContract.Presenter {
 
     private final EditContract.View mView;
-    private final NoteDao personDao;
+    private final NoteDao noteDao;
 
-    public EditPresenter(EditContract.View mMainView, NoteDao personDao) {
+    public EditPresenter(EditContract.View mMainView, NoteDao noteDao) {
         this.mView = mMainView;
         this.mView.setPresenter(this);
-        this.personDao = personDao;
+        this.noteDao = noteDao;
     }
 
     @Override
@@ -22,31 +22,31 @@ public class EditPresenter implements EditContract.Presenter {
     }
 
     @Override
-    public void save(Note person) {
-        long ids = this.personDao.insertPerson(person);
+    public void save(Note note) {
+        long ids = this.noteDao.insertNote(note);
         mView.close();
     }
 
     @Override
-    public boolean validate(Note person) {
+    public boolean validate(Note note) {
         mView.clearPreErrors();
-        if (person.name.isEmpty() || !Util.isValidName(person.name)) {
+        if (note.name.isEmpty() || !Util.isValidName(note.name)) {
             mView.showErrorMessage(Constants.FIELD_NAME);
             return false;
         }
-        if (person.description.isEmpty()) {
+        if (note.description.isEmpty()) {
             mView.showErrorMessage(Constants.FIELD_DESCRIPTION);
             return false;
         }
-        if (person.tag.isEmpty() ) {
+        if (note.tag.isEmpty() ) {
             mView.showErrorMessage(Constants.FIELD_TAG);
             return false;
         }
-        if (person.color.isEmpty()) {
+        if (note.color.isEmpty()) {
             mView.showErrorMessage(Constants.FIELD_COLOR);
             return false;
         }
-        if (person.dateCreate == null) {
+        if (note.dateAlert == null) {
             mView.showErrorMessage(Constants.FIELD_DATE);
             return false;
         }
@@ -61,15 +61,15 @@ public class EditPresenter implements EditContract.Presenter {
 
     @Override
     public void getPersonAndPopulate(long id) {
-        Note person = personDao.findPerson(id);
-        if (person != null) {
-            mView.populate(person);
+        Note note = noteDao.findNote(id);
+        if (note != null) {
+            mView.populate(note);
         }
     }
 
     @Override
-    public void update(Note person) {
-        int ids = this.personDao.updatePerson(person);
+    public void update(Note note) {
+        int ids = this.noteDao.updateNote(note);
         mView.close();
     }
 }

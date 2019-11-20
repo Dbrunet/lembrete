@@ -18,21 +18,21 @@ public class DeleteConfirmFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final long personId = getArguments().getLong(Constants.PERSON_ID);
+        final long noteId = getArguments().getLong(Constants.NOTE_ID);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.are_you_sure);
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mListener.setConfirm(true, personId);
+                mListener.setConfirm(true, noteId);
             }
         });
 
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mListener.setConfirm(false, personId);
+                mListener.setConfirm(false, noteId);
             }
         });
         return builder.create();

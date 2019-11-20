@@ -20,7 +20,7 @@ import tech.alvarez.note.utils.Constants;
 public class ListActivity extends AppCompatActivity implements ListContract.View, ListContract.OnItemClickListener, ListContract.DeleteListener {
 
     private ListContract.Presenter mPresenter;
-    private PeopleAdapter mPeopleAdapter;
+    private NoteAdapter mPeopleAdapter;
 
     private TextView mEmptyTextView;
 
@@ -33,7 +33,7 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.addNewPerson();
+                mPresenter.addNewNote();
             }
         });
 
@@ -42,43 +42,43 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        mPeopleAdapter = new PeopleAdapter(this);
+        mPeopleAdapter = new NoteAdapter(this);
         recyclerView.setAdapter(mPeopleAdapter);
 
         AppDatabase db = AppDatabase.getDatabase(getApplication());
-        mPresenter = new ListPresenter(this, db.personModel());
+        mPresenter = new ListPresenter(this, db.noteModel());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mPresenter.populatePeople();
+        mPresenter.populateNote();
     }
 
     @Override
-    public void showAddPerson() {
+    public void showAddNote() {
         Intent intent = new Intent(this, EditActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void setPersons(List<Note> persons) {
+    public void setNotes(List<Note> notes) {
         mEmptyTextView.setVisibility(View.GONE);
-        mPeopleAdapter.setValues(persons);
+        mPeopleAdapter.setValues(notes);
     }
 
     @Override
     public void showEditScreen(long id) {
         Intent intent = new Intent(this, EditActivity.class);
-        intent.putExtra(Constants.PERSON_ID, id);
+        intent.putExtra(Constants.NOTE_ID, id);
         startActivity(intent);
     }
 
     @Override
-    public void showDeleteConfirmDialog(Note person) {
+    public void showDeleteConfirmDialog(Note note) {
         DeleteConfirmFragment fragment = new DeleteConfirmFragment();
         Bundle bundle = new Bundle();
-        bundle.putLong(Constants.PERSON_ID, person.id);
+        bundle.putLong(Constants.NOTE_ID, note.id);
         fragment.setArguments(bundle);
         fragment.show(getSupportFragmentManager(), "confirmDialog");
     }
@@ -94,19 +94,19 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
     }
 
     @Override
-    public void clickItem(Note person) {
-        mPresenter.openEditScreen(person);
+    public void clickItem(Note note) {
+        mPresenter.openEditScreen(note);
     }
 
     @Override
-    public void clickLongItem(Note person) {
-        mPresenter.openConfirmDeleteDialog(person);
+    public void clickLongItem(Note note) {
+        mPresenter.openConfirmDeleteDialog(note);
     }
 
     @Override
-    public void setConfirm(boolean confirm, long personId) {
+    public void setConfirm(boolean confirm, long noteId) {
         if (confirm) {
-            mPresenter.delete(personId);
+            mPresenter.delete(noteId);
         }
     }
 }

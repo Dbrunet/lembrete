@@ -8,5 +8,5 @@ public class Constants {
     public static final int FIELD_COLOR = 13;
     public static final int FIELD_DATE = 14;
 
-    public static final String PERSON_ID = "person_id";
+    public static final String NOTE_ID = "note_id";
 }

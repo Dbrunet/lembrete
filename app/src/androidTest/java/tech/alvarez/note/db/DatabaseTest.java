@@ -32,23 +32,23 @@ public class DatabaseTest {
     public void createDb() {
         Context context = InstrumentationRegistry.getTargetContext();
         mDb = Room.inMemoryDatabaseBuilder(context, AppDatabase.class).build();
-        mPersonDao = mDb.personModel();
+        mPersonDao = mDb.noteModel();
     }
 
     @Test
     public void writeUserAndReadInList() throws Exception {
 
-        mDb.personModel().deleteAll();
+        mDb.noteModel().deleteAll();
 
-        List<Note> persons = mPersonDao.getAllChannels();
-        assertThat(persons.size(), equalTo(0));
+        List<Note> notes = mPersonDao.getAllChannels();
+        assertThat(notes.size(), equalTo(0));
 
         Note person = addPerson(mDb, 1, "Name 1", "Address 1", "111111", Calendar.getInstance().getTime());
         addPerson(mDb, 2, "Name 2", "Address 2", "22222", Calendar.getInstance().getTime());
         addPerson(mDb, 3, "Name 3", "Address 3", "33333", Calendar.getInstance().getTime());
 
-        persons = mPersonDao.getAllChannels();
-        assertThat(persons.size(), equalTo(3));
+        notes = mPersonDao.getAllChannels();
+        assertThat(notes.size(), equalTo(3));
     }
 
     @After
@@ -58,14 +58,11 @@ public class DatabaseTest {
 
     private static Note addPerson(final AppDatabase db, final long id, final String name,
                                   final String address, final String phone, final Date birthday) {
-        Note person = new Note();
-        person.id = id;
-        person.name = name;
-        person.address = address;
-        person.phone = phone;
-        person.birthday = birthday;
-        db.personModel().insertPerson(person);
-        return person;
+        Note note = new Note();
+        note.id = id;
+        note.name = name;
+        db.noteModel().insertNote(note);
+        return note;
     }
 
 }

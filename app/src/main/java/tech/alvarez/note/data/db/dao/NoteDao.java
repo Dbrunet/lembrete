@@ -18,28 +18,28 @@ public interface NoteDao {
 
 
     @Query("SELECT * FROM tb_note ORDER BY name ASC")
-    LiveData<List<Note>> findAllPersons();
+    LiveData<List<Note>> findAllNotes();
 
     @Query("SELECT * FROM tb_note")
     List<Note> getAllChannels();
 
     @Query("SELECT * FROM tb_note WHERE id=:id")
-    Note findPersonById(String id);
+    Note findNoteById(String id);
 
     @Query("SELECT * FROM tb_note WHERE id=:id")
-    Note findPerson(long id);
+    Note findNote(long id);
 
     @Insert(onConflict = IGNORE)
-    long insertPerson(Note person);
+    long insertNote(Note note);
 
     @Update
-    int updatePerson(Note person);
+    int updateNote(Note note);
 
     @Update
-    void updatePerson(List<Note> people);
+    void updateNote(List<Note> notes);
 
     @Delete
-    void deletePerson(Note person);
+    void deleteNote(Note note);
 
     @Query("DELETE FROM tb_note")
     void deleteAll();

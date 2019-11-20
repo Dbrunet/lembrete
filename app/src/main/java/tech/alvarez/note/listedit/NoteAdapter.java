@@ -13,12 +13,12 @@ import tech.alvarez.note.R;
 import tech.alvarez.note.data.db.entity.Note;
 import tech.alvarez.note.utils.Util;
 
-public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder> {
+public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     private List<Note> mValues;
     private ListContract.OnItemClickListener mOnItemClickListener;
 
-    public PeopleAdapter(ListContract.OnItemClickListener onItemClickListener) {
+    public NoteAdapter(ListContract.OnItemClickListener onItemClickListener) {
         mValues = new ArrayList<>();
         mOnItemClickListener = onItemClickListener;
     }
@@ -37,7 +37,9 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
         holder.descriptionTextView.setText(holder.mItem.description);
         holder.tagTextView.setText(holder.mItem.tag);
-        holder.dataCreateTextView.setText(Util.formatMin(holder.mItem.dateCreate));
+        holder.dataAlertTextView.setText(Util.formatMin(holder.mItem.dateAlert));
+
+        holder.mView.setBackgroundColor(Integer.parseInt(mValues.get(position).color));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +71,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
         public final View mView;
         public final TextView nameTextView;
         public final TextView descriptionTextView;
-        public final TextView dataCreateTextView;
+        public final TextView dataAlertTextView;
         public final TextView tagTextView;
         public Note mItem;
 
@@ -78,7 +80,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
             mView = view;
             nameTextView = (TextView) view.findViewById(R.id.nameTextView);
             descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
-            dataCreateTextView = (TextView) view.findViewById(R.id.dataCreateTextView);
+            dataAlertTextView = (TextView) view.findViewById(R.id.dataAlertTextView);
             tagTextView = (TextView) view.findViewById(R.id.tagTextView);
         }
     }

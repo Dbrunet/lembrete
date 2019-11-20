@@ -19,25 +19,23 @@ public class Note {
     public String description;
     public String color;
     public String tag;
-    public Date dateCreate;
-    public Boolean status;
+    public Date dateAlert;
 
     @Ignore
     public Note() {
         this.name = "";
         this.description = "";
-        this.dateCreate = null;
+        this.dateAlert = null;
         this.color = "";
         this.tag = "";
     }
 
 
-    public Note(String name, String description, String color, String tag, Date dateCreate, Boolean status) {
+    public Note(String name, String description, String color, String tag, Date dateAlert) {
         this.name = name;
         this.description = description;
         this.color = color;
         this.tag = tag;
-        this.dateCreate = dateCreate;
-        this.status = status;
+        this.dateAlert = dateAlert;
     }
 }

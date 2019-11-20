@@ -9,15 +9,15 @@ import tech.alvarez.note.data.db.entity.Note;
 public interface EditContract {
 
     interface Presenter extends BasePresenter {
-        void save(Note person);
+        void save(Note note);
 
-        boolean validate(Note person);
+        boolean validate(Note note);
 
         void showDateDialog();
 
         void getPersonAndPopulate(long id);
 
-        void update(Note person);
+        void update(Note note);
     }
 
     interface View extends BaseView<EditContract.Presenter> {
@@ -30,7 +30,7 @@ public interface EditContract {
 
         void close();
 
-        void populate(Note person);
+        void populate(Note note);
     }
 
     interface DateListener {

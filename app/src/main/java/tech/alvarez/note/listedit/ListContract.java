@@ -10,42 +10,42 @@ public interface ListContract {
 
     interface Presenter extends BasePresenter {
 
-        void addNewPerson();
+        void addNewNote();
 
         void result(int requestCode, int resultCode);
 
-        void populatePeople();
+        void populateNote();
 
-        void openEditScreen(Note person);
+        void openEditScreen(Note note);
 
-        void openConfirmDeleteDialog(Note person);
+        void openConfirmDeleteDialog(Note note);
 
-        void delete(long personId);
+        void delete(long noteId);
     }
 
     interface View extends BaseView<ListContract.Presenter> {
 
-        void showAddPerson();
+        void showAddNote();
 
-        void setPersons(List<Note> persons);
+        void setNotes(List<Note> notes);
 
         void showEditScreen(long id);
 
-        void showDeleteConfirmDialog(Note person);
+        void showDeleteConfirmDialog(Note note);
 
         void showEmptyMessage();
     }
 
     interface OnItemClickListener {
 
-        void clickItem(Note person);
+        void clickItem(Note note);
 
-        void clickLongItem(Note person);
+        void clickLongItem(Note note);
     }
 
     interface DeleteListener {
 
-        void setConfirm(boolean confirm, long personId);
+        void setConfirm(boolean confirm, long noteId);
 
     }
 }

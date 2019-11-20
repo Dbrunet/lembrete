@@ -25,8 +25,8 @@ public class ListPresenter implements ListContract.Presenter {
     }
 
     @Override
-    public void addNewPerson() {
-        mView.showAddPerson();
+    public void addNewNote() {
+        mView.showAddNote();
     }
 
     @Override
@@ -35,12 +35,12 @@ public class ListPresenter implements ListContract.Presenter {
     }
 
     @Override
-    public void populatePeople() {
-        noteDao.findAllPersons().observeForever(new Observer<List<Note>>() {
+    public void populateNote() {
+        noteDao.findAllNotes().observeForever(new Observer<List<Note>>() {
             @Override
-            public void onChanged(@Nullable List<Note> persons) {
-                mView.setPersons(persons);
-                if (persons == null || persons.size() < 1) {
+            public void onChanged(@Nullable List<Note> notes) {
+                mView.setNotes(notes);
+                if (notes == null || notes.size() < 1) {
                     mView.showEmptyMessage();
                 }
             }
@@ -48,18 +48,18 @@ public class ListPresenter implements ListContract.Presenter {
     }
 
     @Override
-    public void openEditScreen(Note person) {
-        mView.showEditScreen(person.id);
+    public void openEditScreen(Note note) {
+        mView.showEditScreen(note.id);
     }
 
     @Override
-    public void openConfirmDeleteDialog(Note person) {
-        mView.showDeleteConfirmDialog(person);
+    public void openConfirmDeleteDialog(Note note) {
+        mView.showDeleteConfirmDialog(note);
     }
 
     @Override
-    public void delete(long personId) {
-        Note person = noteDao.findPerson(personId);
-        noteDao.deletePerson(person);
+    public void delete(long noteId) {
+        Note note = noteDao.findNote(noteId);
+        noteDao.deleteNote(note);
     }
 }
