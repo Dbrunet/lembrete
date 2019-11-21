@@ -41,7 +41,7 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mPeopleAdapter = new NoteAdapter(this);
         recyclerView.setAdapter(mPeopleAdapter);
 

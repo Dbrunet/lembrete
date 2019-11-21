@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
@@ -93,7 +94,7 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
 
                 note.name = mNameEditText.getText().toString();
                 note.description = mDescriptionEditText.getText().toString();
-                note.color = String.valueOf(Util.getRandomColor());
+                if (TextUtils.isEmpty(note.color)) note.color = String.valueOf(Util.getRandomColor());
                 note.tag = mTagEditText.getText().toString();
 
                 boolean valid = mPresenter.validate(note);

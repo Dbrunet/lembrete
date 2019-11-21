@@ -8,20 +8,22 @@
 
     <TextView
         android:id="@+id/emptyTextView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fontFamily="sans-serif-condensed"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_gravity="center"
+        android:ems="12"
         android:text="@string/no_contacts"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:visibility="gone"
         tools:visibility="visible" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

@@ -19,7 +19,7 @@
         </activity>
         <activity
             android:name="tech.alvarez.note.edit.EditActivity"
-            android:label="@string/note"
+            android:label="@string/detalhe"
             android:parentActivityName="tech.alvarez.note.listedit.ListActivity">
 
         </activity>

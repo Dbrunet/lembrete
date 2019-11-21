@@ -37,7 +37,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
         holder.descriptionTextView.setText(holder.mItem.description);
         holder.tagTextView.setText(holder.mItem.tag);
-        holder.dataAlertTextView.setText(Util.formatMin(holder.mItem.dateAlert));
+        holder.dataAlertTextView.setText("Lembrete: " + Util.formatMin(holder.mItem.dateAlert));
 
         holder.mView.setBackgroundColor(Integer.parseInt(mValues.get(position).color));
 

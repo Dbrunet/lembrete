@@ -32,6 +32,9 @@ public interface NoteDao {
     @Insert(onConflict = IGNORE)
     long insertNote(Note note);
 
+    @Insert
+    void insertNotes(Note... note);
+
     @Update
     int updateNote(Note note);
 
