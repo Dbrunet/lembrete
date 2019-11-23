@@ -17,16 +17,22 @@ import tech.alvarez.note.data.db.dao.NoteDao;
 import tech.alvarez.note.data.db.entity.Note;
 import tech.alvarez.note.utils.Util;
 
-@Database(entities = {Note.class}, version = 4, exportSchema = false)
+@Database(entities = {Note.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
 
     public abstract NoteDao noteModel();
 
-    public static AppDatabase getDatabase(Context context) {
+    public synchronized static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "notedb")
+            INSTANCE = getDatabase(context);
+        }
+        return INSTANCE;
+    }
+
+    public static AppDatabase getDatabase(final Context context) {
+        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "notedb")
                     .allowMainThreadQueries()
                     .addCallback(new Callback() {
                         @Override
@@ -35,16 +41,12 @@ public abstract class AppDatabase extends RoomDatabase {
                             Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
                                 @Override
                                 public void run() {
-                                    INSTANCE.noteModel().insertNotes(Note.populateData());
+                                    getInstance(context).noteModel().insertNotes(Note.populateData());
                                 }
                             });
                         }
                     })
                     .build();
-
-
-        }
-        return INSTANCE;
     }
 
     public static AppDatabase getMemoryDatabase(Context context) {

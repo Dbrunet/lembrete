@@ -60,7 +60,7 @@ public class EditPresenter implements EditContract.Presenter {
     }
 
     @Override
-    public void getPersonAndPopulate(long id) {
+    public void getNoteAndPopulate(long id) {
         Note note = noteDao.findNote(id);
         if (note != null) {
             mView.populate(note);

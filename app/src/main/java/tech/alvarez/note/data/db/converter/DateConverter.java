@@ -4,6 +4,9 @@ import android.arch.persistence.room.TypeConverter;
 
 import java.util.Date;
 
+/**
+ * Classe para conversão de data do banco de dados Room
+ */
 public class DateConverter {
 
     @TypeConverter

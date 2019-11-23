@@ -13,6 +13,9 @@ import tech.alvarez.note.data.db.entity.Note;
 
 import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 
+/**
+ * Classe Dao da entidade Note
+ */
 @Dao
 public interface NoteDao {
 

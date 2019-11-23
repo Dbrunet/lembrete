@@ -20,7 +20,7 @@ import tech.alvarez.note.utils.Constants;
 public class ListActivity extends AppCompatActivity implements ListContract.View, ListContract.OnItemClickListener, ListContract.DeleteListener {
 
     private ListContract.Presenter mPresenter;
-    private NoteAdapter mPeopleAdapter;
+    private NoteAdapter mNoteAdapter;
 
     private TextView mEmptyTextView;
 
@@ -42,10 +42,10 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        mPeopleAdapter = new NoteAdapter(this);
-        recyclerView.setAdapter(mPeopleAdapter);
+        mNoteAdapter = new NoteAdapter(this);
+        recyclerView.setAdapter(mNoteAdapter);
 
-        AppDatabase db = AppDatabase.getDatabase(getApplication());
+        AppDatabase db = AppDatabase.getInstance(getApplication());
         mPresenter = new ListPresenter(this, db.noteModel());
     }
 
@@ -64,7 +64,7 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
     @Override
     public void setNotes(List<Note> notes) {
         mEmptyTextView.setVisibility(View.GONE);
-        mPeopleAdapter.setValues(notes);
+        mNoteAdapter.setValues(notes);
     }
 
     @Override
