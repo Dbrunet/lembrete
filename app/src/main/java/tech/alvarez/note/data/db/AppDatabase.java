@@ -22,8 +22,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
 
-    public abstract NoteDao noteModel();
+    public abstract NoteDao noteDao();
 
+    //cria um singleton do banco de dados (uma instancia unica)
     public synchronized static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {
             INSTANCE = getDatabase(context);
@@ -32,16 +33,18 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public static AppDatabase getDatabase(final Context context) {
+        //cria o banco atribuindo seu nome
         return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "notedb")
                     .allowMainThreadQueries()
                     .addCallback(new Callback() {
                         @Override
                         public void onCreate(@NonNull SupportSQLiteDatabase db) {
                             super.onCreate(db);
+                            //executa uma thread para uma inserção inicial
                             Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
                                 @Override
                                 public void run() {
-                                    getInstance(context).noteModel().insertNotes(Note.populateData());
+                                    getInstance(context).noteDao().insertNotes(Note.populateData());
                                 }
                             });
                         }
@@ -49,6 +52,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     .build();
     }
 
+    //metodo não usado
     public static AppDatabase getMemoryDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.inMemoryDatabaseBuilder(context.getApplicationContext(), AppDatabase.class)
@@ -58,6 +62,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    //metodo não usado
     public static void destroyInstance() {
         INSTANCE = null;
     }

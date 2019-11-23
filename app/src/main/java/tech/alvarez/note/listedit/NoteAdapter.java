@@ -13,6 +13,9 @@ import tech.alvarez.note.R;
 import tech.alvarez.note.data.db.entity.Note;
 import tech.alvarez.note.utils.Util;
 
+/**
+ * Classe de controle dos itens da lista (Tela inicial)
+ */
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     private List<Note> mValues;
@@ -25,22 +28,34 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //cria a view de cada caixinha
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_note, parent, false);
         return new ViewHolder(view);
     }
 
+    /**
+     * varre a lista de objetos recebidos pelo metodo {@link #setValues(List)}
+     */
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        //recebe por posicao
         holder.mItem = mValues.get(position);
-        holder.nameTextView.setText(mValues.get(position).name);
-        holder.tagTextView.setText(mValues.get(position).tag);
 
-        holder.descriptionTextView.setText(holder.mItem.description);
+        //seta o valor de name no campo de texto nameTextView
+        holder.nameTextView.setText(holder.mItem.name);
+        //seta o valor de tag no campo de texto tagTextView
         holder.tagTextView.setText(holder.mItem.tag);
+
+        //seta o valor de description no campo de texto descriptionTextView
+        holder.descriptionTextView.setText(holder.mItem.description);
+
+        //seta o valor de dateAlert no campo de texto dataAlertTextView
         holder.dataAlertTextView.setText("Lembrete: " + Util.formatMin(holder.mItem.dateAlert));
 
-        holder.mView.setBackgroundColor(Integer.parseInt(mValues.get(position).color));
+        //seta a cor no fundo da caixa
+        holder.mView.setBackgroundColor(Integer.parseInt(holder.mItem.color));
 
+        //evendo de clique da para transição de tela
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +63,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             }
         });
 
+        //evento de longo click da caixa para remoção
         holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -57,16 +73,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         });
     }
 
+    //total de itens
     @Override
     public int getItemCount() {
         return mValues.size();
     }
 
+    //recebe todos os lembretes cadastrados no banco
     public void setValues(List<Note> values) {
         mValues = values;
         notifyDataSetChanged();
     }
 
+    //ViewHolder inicializa os componentes do xml
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView nameTextView;

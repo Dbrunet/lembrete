@@ -8,11 +8,11 @@ import tech.alvarez.note.data.db.entity.Note;
 
 public interface ListContract {
 
+    //Presenter - cuida das validações e controle dos dados via banco de dados para a view. É
+    //usado pela classe Presenter
     interface Presenter extends BasePresenter {
 
         void addNewNote();
-
-        void result(int requestCode, int resultCode);
 
         void populateNote();
 
@@ -23,6 +23,7 @@ public interface ListContract {
         void delete(long noteId);
     }
 
+    //View - tudo ligado a interface. É implementado pela Activity
     interface View extends BaseView<ListContract.Presenter> {
 
         void showAddNote();
@@ -36,6 +37,7 @@ public interface ListContract {
         void showEmptyMessage();
     }
 
+    //Metodos usados para evendos de click
     interface OnItemClickListener {
 
         void clickItem(Note note);
@@ -43,6 +45,7 @@ public interface ListContract {
         void clickLongItem(Note note);
     }
 
+    //metodo usado para confirmação de remoção
     interface DeleteListener {
 
         void setConfirm(boolean confirm, long noteId);

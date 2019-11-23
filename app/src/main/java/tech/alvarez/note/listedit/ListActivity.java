@@ -46,7 +46,7 @@ public class ListActivity extends AppCompatActivity implements ListContract.View
         recyclerView.setAdapter(mNoteAdapter);
 
         AppDatabase db = AppDatabase.getInstance(getApplication());
-        mPresenter = new ListPresenter(this, db.noteModel());
+        mPresenter = new ListPresenter(this, db.noteDao());
     }
 
     @Override

@@ -7,12 +7,12 @@ import tech.alvarez.note.utils.Util;
 
 public class EditPresenter implements EditContract.Presenter {
 
-    private final EditContract.View mView;
+    private final EditContract.View view;
     private final NoteDao noteDao;
 
-    public EditPresenter(EditContract.View mMainView, NoteDao noteDao) {
-        this.mView = mMainView;
-        this.mView.setPresenter(this);
+    public EditPresenter(EditContract.View view, NoteDao noteDao) {
+        this.view = view;
+        this.view.setPresenter(this);
         this.noteDao = noteDao;
     }
 
@@ -24,30 +24,30 @@ public class EditPresenter implements EditContract.Presenter {
     @Override
     public void save(Note note) {
         long ids = this.noteDao.insertNote(note);
-        mView.close();
+        view.close();
     }
 
     @Override
     public boolean validate(Note note) {
-        mView.clearPreErrors();
+        view.clearPreErrors();
         if (note.name.isEmpty() || !Util.isValidName(note.name)) {
-            mView.showErrorMessage(Constants.FIELD_NAME);
+            view.showErrorMessage(Constants.FIELD_NAME);
             return false;
         }
         if (note.description.isEmpty()) {
-            mView.showErrorMessage(Constants.FIELD_DESCRIPTION);
+            view.showErrorMessage(Constants.FIELD_DESCRIPTION);
             return false;
         }
         if (note.tag.isEmpty() ) {
-            mView.showErrorMessage(Constants.FIELD_TAG);
+            view.showErrorMessage(Constants.FIELD_TAG);
             return false;
         }
         if (note.color.isEmpty()) {
-            mView.showErrorMessage(Constants.FIELD_COLOR);
+            view.showErrorMessage(Constants.FIELD_COLOR);
             return false;
         }
         if (note.dateAlert == null) {
-            mView.showErrorMessage(Constants.FIELD_DATE);
+            view.showErrorMessage(Constants.FIELD_DATE);
             return false;
         }
 
@@ -56,20 +56,20 @@ public class EditPresenter implements EditContract.Presenter {
 
     @Override
     public void showDateDialog() {
-        mView.openDateDialog();
+        view.openDateDialog();
     }
 
     @Override
     public void getNoteAndPopulate(long id) {
         Note note = noteDao.findNote(id);
         if (note != null) {
-            mView.populate(note);
+            view.populate(note);
         }
     }
 
     @Override
     public void update(Note note) {
         int ids = this.noteDao.updateNote(note);
-        mView.close();
+        view.close();
     }
 }

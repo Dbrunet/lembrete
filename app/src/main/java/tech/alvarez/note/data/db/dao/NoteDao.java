@@ -20,33 +20,43 @@ import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 public interface NoteDao {
 
 
+    //retorna todas os lembretes ordenado pelo nome
     @Query("SELECT * FROM tb_note ORDER BY name ASC")
     LiveData<List<Note>> findAllNotes();
 
+    //retorna todos os lembretes
     @Query("SELECT * FROM tb_note")
     List<Note> getAllChannels();
 
+    //retorna um lembrete especifico pelo id: String
     @Query("SELECT * FROM tb_note WHERE id=:id")
     Note findNoteById(String id);
 
+    //retorna um lembrete especifico pelo id: long
     @Query("SELECT * FROM tb_note WHERE id=:id")
     Note findNote(long id);
 
+    //insere um lembrete, ignora conflitos
     @Insert(onConflict = IGNORE)
     long insertNote(Note note);
 
+    //insere lembretes.
     @Insert
     void insertNotes(Note... note);
 
+    //atualiza um lembrete
     @Update
     int updateNote(Note note);
 
+    //atualiza varios lembretes
     @Update
     void updateNote(List<Note> notes);
 
+    //remove um lembrete
     @Delete
     void deleteNote(Note note);
 
+    //remove todos os lembretes
     @Query("DELETE FROM tb_note")
     void deleteAll();
 }

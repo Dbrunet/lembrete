@@ -20,18 +20,29 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
 
     private EditContract.Presenter mPresenter;
 
+    //xml
     private EditText mNameEditText;
+    //xml
     private EditText mDescriptionEditText;
+    //xml
     private EditText mColorEditText;
+    //xml
     private EditText mDateCreateEditText;
+    //xml
     private EditText mTagEditText;
 
+    //xml
     private TextInputLayout mNameTextInputLayout;
+    //xml
     private TextInputLayout mDescriptionInputLayout;
+    //xml
     private TextInputLayout mTagInputLayout;
+    //xml
     private TextInputLayout mDateCreateInputLayout;
+    //xml
     private TextInputLayout mColorTextInputLayout;
 
+    //xml
     private FloatingActionButton mFab;
 
     private Note note;
@@ -58,7 +69,7 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
         //recupera a instancia do banco de dados
         AppDatabase db = AppDatabase.getInstance(getApplication());
         //cria o objeto presenter
-        mPresenter = new EditPresenter(this, db.noteModel());
+        mPresenter = new EditPresenter(this, db.noteDao());
 
         //inicializa as views
         initViews();
@@ -169,6 +180,10 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
         mPresenter = presenter;
     }
 
+    /**
+     * Valida os campos caso não forem preenchidos
+     * @param field
+     */
     @Override
     public void showErrorMessage(int field) {
         if (field == Constants.FIELD_NAME) {
@@ -182,6 +197,9 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
         }
     }
 
+    /**
+     * Limpa os campos de erro
+     */
     @Override
     public void clearPreErrors() {
         mNameTextInputLayout.setErrorEnabled(false);
@@ -191,17 +209,22 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
         mDateCreateInputLayout.setErrorEnabled(false);
     }
 
+    /**
+     * Metodo para a chamada da camada de escolha do date
+     */
     @Override
     public void openDateDialog() {
         DateDialogFragment fragment = new DateDialogFragment();
         fragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    //finaliza a tela
     @Override
     public void close() {
         finish();
     }
 
+    //retorna a nota do banco
     @Override
     public void populate(Note note) {
         this.note = note;
@@ -212,9 +235,11 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
         mTagEditText.setText(note.tag);
     }
 
+    //recebe o date escolhido da camada do datePicker
     @Override
     public void setSelectedDate(Date date) {
         note.dateAlert = date;
+        //formada a data e insere no campo de data
         mDateCreateEditText.setText(Util.format(date));
     }
 }
